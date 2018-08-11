@@ -1,0 +1,98 @@
+<!--
+@license
+Copyright (c) 2018 Vaadin Ltd.
+This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <meta name="description" content="Polymer 3 Webpack app">
+
+    <title>Polymer 3 Webpack app</title>
+
+    <base href="/">
+
+    <link rel="icon" href="favicon.ico">
+
+    <!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- See https://goo.gl/qRE0vM -->
+    <meta name="theme-color" content="#1576f3">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Polymer 3 Webpack App">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Polymer 3 Webpack App">
+
+    <!-- Homescreen icons -->
+    <link rel="apple-touch-icon" href="assets/images/icon-48x48.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="assets/images/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/images/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/images/icon-192x192.png">
+
+    <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/images/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#1576f3">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <script>if (!window.customElements) { document.write('<!--'); }</script>
+    <script src="./vendor/custom-elements-es5-adapter.js"></script>
+    <!--! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
+
+    <script>
+      // Load and register pre-caching Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('sw.js');
+        });
+      }
+    </script>
+
+    <!-- Add any global styles for body, document, etc. -->
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #eee;
+      }
+
+      /* Add styles to render app header while loading resources */
+      starter-app[unresolved] {
+        display: block;
+        color: #fff;
+        background: hsl(214, 90%, 52%);
+        padding: 16px;
+        font-size: 20px;
+        line-height: 1.625;
+        font-weight: 400;
+        font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        -webkit-font-smoothing: antialiased;
+      }
+
+      @media (min-width: 640px) {
+        starter-app[unresolved] {
+          margin-left: 256px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <starter-app unresolved>
+      Vaadin App
+    </starter-app>
+    <!-- Load the external helpers to run the code transpiled to ES5 -->
+    <script src="./vendor/babel-helpers.min.js"></script>
+    <script src="./vendor/regenerator-runtime.min.js"></script>
+    <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+    <script src="./vendor/webcomponents-loader.js"></script>
+  </body>
+</html>
