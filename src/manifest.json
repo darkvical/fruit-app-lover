@@ -1,7 +1,7 @@
 {
-  "name": "Polymer 3 Webpack App",
-  "short_name": "Vaadin App",
-  "description": "demo project built with Vaadin components and Vaadin.Router library",
+  "name": "Fruit app retail",
+  "short_name": "FruitAPP",
+  "description": "App for control of eat fruits",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#1576f3",

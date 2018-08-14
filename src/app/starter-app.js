@@ -14,6 +14,12 @@ import '../styles/shared-styles.js';
 import { EMPLOYEE_LIST, NEW_EMPLOYEE } from '../routes/urls';
 import { onLocationChanged } from '../routes/utils';
 
+// imports for use firebase
+import firebase from '../../node_modules/firebase/app';
+import { config } from '../api/config-firebase.js';
+import 'firebase/database';
+import 'firebase/auth';
+
 /**
  * Starter application shell.
  *
@@ -26,14 +32,6 @@ class StarterApp extends PolymerElement {
       <style include="shared-styles">
         :host {
           display: block;
-        }
-        app-header {
-          color: var(--lumo-base-color);
-          background: var(--lumo-primary-color);
-        }
-        vaadin-button {
-          margin-right: var(--lumo-space-m);
-          background: var(--lumo-tint);
         }
         vaadin-item {
           padding: 0;
@@ -52,10 +50,10 @@ class StarterApp extends PolymerElement {
       <app-drawer-layout fullbleed narrow="{{narrow}}">
         <!-- Drawer content -->
         <app-drawer slot="drawer" swipe-open="[[narrow]]">
-          <app-toolbar>Menu</app-toolbar>
+          <app-toolbar class="header-menu">Menu</app-toolbar>
           <vaadin-list-box selected="{{selected}}">
             <vaadin-item>
-              <a href="/employee-list">Employee list</a>
+              <a href="/employee-list">Fruit lovers</a>
             </vaadin-item>
             <vaadin-item>
               <a href="/employee-new">New employee</a>
@@ -89,7 +87,11 @@ class StarterApp extends PolymerElement {
 
   static get properties() {
     return {
-      selected: Number
+      selected: Number,
+      name: {
+        type: String,
+        value: 'vical'
+      }
     };
   }
 
@@ -102,19 +104,29 @@ class StarterApp extends PolymerElement {
 
   ready() {
     super.ready();
-
     this.removeAttribute('unresolved');
-
     onLocationChanged(this.__onRouteChanged.bind(this));
-
     import(/* webpackChunkName: "router" */ '../routes/router.js').then(
       router => {
         router.init(this.shadowRoot.querySelector('main'));
       }
     );
+    firebase.initializeApp(config);
+    const database = firebase.database();
+    const accounts = database.ref('users/');
+    accounts
+      .orderByChild('user')
+      .equalTo('vical.rl@gmail.com')
+      .once('child_added', function(snapshot) {
+        // console.log(snapshot.val());
+      });
   }
 
   __onRouteChanged(e) {
+    // console.log(this.name);
+    // firebase.auth().onAuthStateChanged(function(account) {
+    //   console.log(account);
+    // });
     switch (e.detail.location.pathname) {
       case EMPLOYEE_LIST:
         this.selected = 0;

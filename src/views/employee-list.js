@@ -6,8 +6,10 @@ import '@vaadin/vaadin-grid/vaadin-grid.js';
 import '@vaadin/vaadin-grid/vaadin-grid-filter.js';
 import '../styles/shared-styles.js';
 
+import '../components/fruit-lover.js';
+
 /**
- * Employee list view.
+ * Fruit lovers list view.
  *
  * @class EmployeeList
  * @extends {PolymerElement}
@@ -25,33 +27,8 @@ class EmployeeList extends PolymerElement {
         }
       </style>
 
-      <iron-ajax auto url="/api/users" handle-as="json" last-response="{{_employees}}"></iron-ajax>
-
       <div class="card">
-        <vaadin-grid items="[[_employees]]">
-          <vaadin-grid-column>
-            <template class="header">
-              <vaadin-grid-filter aria-label="First Name" path="firstName" value="[[_filterFirstName]]">
-                <vaadin-text-field slot="filter" placeholder="First Name" value="{{_filterFirstName}}" focus-target></vaadin-text-field>
-              </vaadin-grid-filter>
-            </template>
-            <template>[[item.firstName]]</template>
-          </vaadin-grid-column>
-
-          <vaadin-grid-column>
-            <template class="header">
-              <vaadin-grid-filter aria-label="Last Name" path="lastName" value="[[_filterLastName]]">
-                <vaadin-text-field slot="filter" placeholder="Last Name" value="{{_filterLastName}}"></vaadin-text-field>
-              </vaadin-grid-filter>
-            </template>
-            <template>[[item.lastName]]</template>
-          </vaadin-grid-column>
-
-          <vaadin-grid-column>
-            <template class="header">Email</template>
-            <template>[[item.email]]</template>
-          </vaadin-grid-column>
-        </vaadin-grid>
+        <fruit-lover></fruit-lover>
       </div>
     `;
   }
@@ -67,7 +44,8 @@ class EmployeeList extends PolymerElement {
         value: () => []
       },
       _filterFirstName: String,
-      _filterLastName: String
+      _filterLastName: String,
+      _email: String
     };
   }
 }
