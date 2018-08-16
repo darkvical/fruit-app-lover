@@ -1,9 +1,9 @@
-import '@vaadin/vaadin-lumo-styles/color.js';
-import '@vaadin/vaadin-lumo-styles/sizing.js';
-import '@vaadin/vaadin-lumo-styles/spacing.js';
-import '@vaadin/vaadin-lumo-styles/style.js';
-import '@vaadin/vaadin-lumo-styles/typography.js';
-import '@polymer/paper-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/color';
+import '@vaadin/vaadin-lumo-styles/sizing';
+import '@vaadin/vaadin-lumo-styles/spacing';
+import '@vaadin/vaadin-lumo-styles/style';
+import '@vaadin/vaadin-lumo-styles/typography';
+import '@polymer/paper-styles/color';
 
 const $template = document.createElement('template');
 
@@ -22,16 +22,16 @@ $template.innerHTML = `<dom-module id="shared-styles">
       }
       app-header {
         color: #FFFFFF;
-        background-color: var(--paper-teal-300);
+        background-color: var(--paper-pink-a700);
       }
       vaadin-button {
         color: var(--light-divider-opacity);
         margin-right: var(--lumo-space-m);
-        background: var(--paper-teal-300);
+        background: var(--paper-pink-a700);
       }
       .header-menu {
         color: #FFFFFF;
-        background-color: var(--paper-teal-300);
+        background-color: var(--paper-pink-a700);
       }
     </style>
   </template>

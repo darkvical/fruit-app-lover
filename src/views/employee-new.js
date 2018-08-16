@@ -1,25 +1,25 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import '@polymer/iron-form/iron-form.js';
-import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-checkbox/vaadin-checkbox.js';
-import '@vaadin/vaadin-combo-box/vaadin-combo-box.js';
-import '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
-import '@vaadin/vaadin-dialog/vaadin-dialog.js';
-import '@vaadin/vaadin-dropdown-menu/vaadin-dropdown-menu.js';
-import '@vaadin/vaadin-form-layout/vaadin-form-layout.js';
-import '@vaadin/vaadin-form-layout/vaadin-form-item.js';
-import '@vaadin/vaadin-item/vaadin-item.js';
-import '@vaadin/vaadin-list-box/vaadin-list-box.js';
-import '@vaadin/vaadin-notification/vaadin-notification.js';
-import '@vaadin/vaadin-ordered-layout/vaadin-vertical-layout.js';
-import '@vaadin/vaadin-radio-button/vaadin-radio-group.js';
-import '@vaadin/vaadin-radio-button/vaadin-radio-button.js';
-import '@vaadin/vaadin-text-field/vaadin-text-area.js';
-import '@vaadin/vaadin-upload/vaadin-upload.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element';
+import { html } from '@polymer/polymer/lib/utils/html-tag';
+import '@polymer/iron-form';
+import '@vaadin/vaadin-button';
+import '@vaadin/vaadin-checkbox';
+import '@vaadin/vaadin-combo-box';
+import '@vaadin/vaadin-date-picker';
+import '@vaadin/vaadin-dialog';
+import '@vaadin/vaadin-dropdown-menu';
+import '@vaadin/vaadin-form-layout';
+import '@vaadin/vaadin-form-layout/vaadin-form-item';
+import '@vaadin/vaadin-item';
+import '@vaadin/vaadin-list-box';
+import '@vaadin/vaadin-notification';
+import '@vaadin/vaadin-ordered-layout/vaadin-vertical-layout';
+import '@vaadin/vaadin-radio-button/vaadin-radio-group';
+import '@vaadin/vaadin-radio-button';
+import '@vaadin/vaadin-text-field/vaadin-text-area';
+import '@vaadin/vaadin-upload';
 import '../styles/shared-styles.js';
-import { EMPLOYEE_LIST } from '../routes/urls';
-import { navigateTo } from '../routes/utils';
+import { EMPLOYEE_LIST } from '../routes/urls.js';
+import { navigateTo } from '../routes/utils.js';
 
 /**
  * New employee view.

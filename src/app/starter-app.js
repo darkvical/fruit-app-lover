@@ -9,16 +9,21 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@vaadin/vaadin-button/vaadin-button.js';
 import '@vaadin/vaadin-item/vaadin-item.js';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
-import '@vaadin/vaadin-lumo-styles/icons.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/polymer/lib/elements/dom-if.js';
 import '../styles/shared-styles.js';
+
+// views and routers
+import '../views/login-lover.js';
+import '../components/menu-header-user.js';
 import { EMPLOYEE_LIST, NEW_EMPLOYEE } from '../routes/urls';
 import { onLocationChanged } from '../routes/utils';
 
 // imports for use firebase
-import firebase from '../../node_modules/firebase/app';
-import { config } from '../api/config-firebase.js';
-import 'firebase/database';
-import 'firebase/auth';
+import { auth } from '../access/firebase.js';
+// icons
+import '@vaadin/vaadin-lumo-styles/icons.js';
+import '../assets/icons-svg.js';
 
 /**
  * Starter application shell.
@@ -46,41 +51,49 @@ class StarterApp extends PolymerElement {
           text-decoration: none;
         }
       </style>
-
-      <app-drawer-layout fullbleed narrow="{{narrow}}">
-        <!-- Drawer content -->
-        <app-drawer slot="drawer" swipe-open="[[narrow]]">
-          <app-toolbar class="header-menu">Menu</app-toolbar>
-          <vaadin-list-box selected="{{selected}}">
-            <vaadin-item>
-              <a href="/employee-list">Fruit lovers</a>
-            </vaadin-item>
-            <vaadin-item>
-              <a href="/employee-new">New employee</a>
-            </vaadin-item>
-          </vaadin-list-box>
-        </app-drawer>
-
-        <!-- Main content -->
-        <app-header-layout>
-          <app-header slot="header">
-            <app-toolbar>
-              <vaadin-button theme="icon" hidden$="[[!narrow]]" aria-label="Toggle menu" drawer-toggle>
-                <iron-icon icon="lumo:menu"></iron-icon>
-              </vaadin-button>
-              <div main-title>
-                <slot></slot>
-              </div>
+      <template is="dom-if" if="{{!logged}}" restamp="true">
+        <login-lover></login-lover>
+      </template>
+      <template is="dom-if" if="{{logged}}" restamp="true">
+        <app-drawer-layout fullbleed narrow="{{narrow}}">
+          <!-- Drawer content -->
+          <app-drawer slot="drawer" swipe-open="[[narrow]]">
+            <app-toolbar class="header-menu">
+              <menu-header-user lover={{user}}></menu-header-user>
             </app-toolbar>
-          </app-header>
-          <main>
-            <!-- view content -->
-          </main>
-        </app-header-layout>
-      </app-drawer-layout>
+            <vaadin-list-box selected="{{selected}}">
+              <vaadin-item>
+                <a href="/employee-list">Fruit lovers</a>
+              </vaadin-item>
+              <vaadin-item>
+                <a href="/employee-new">New employee</a>
+              </vaadin-item>
+            </vaadin-list-box>
+          </app-drawer>
+
+          <!-- Main content -->
+          <app-header-layout>
+            <app-header slot="header">
+              <app-toolbar>
+                <vaadin-button theme="icon" hidden$="[[!narrow]]" aria-label="Toggle menu" drawer-toggle>
+                  <iron-icon icon="lumo:menu"></iron-icon>
+                </vaadin-button>
+                <div main-title>
+                  Fruit Retail APP
+                </div>
+                <div>
+                  <paper-icon-button icon="my-icon:exit-to-app" on-click="_singOut"></paper-icon-button>
+                </div>
+              </app-toolbar>
+            </app-header>
+            <main>
+              <!-- view content -->
+            </main>
+          </app-header-layout>
+        </app-drawer-layout>
+      </template>
     `;
   }
-
   static get is() {
     return 'starter-app';
   }
@@ -88,10 +101,8 @@ class StarterApp extends PolymerElement {
   static get properties() {
     return {
       selected: Number,
-      name: {
-        type: String,
-        value: 'vical'
-      }
+      logged: { type: Boolean, value: false, notify: true },
+      user: { type: Object, notify: true }
     };
   }
 
@@ -104,29 +115,31 @@ class StarterApp extends PolymerElement {
 
   ready() {
     super.ready();
-    this.removeAttribute('unresolved');
+    const self = this;
+    self.removeAttribute('unresolved');
     onLocationChanged(this.__onRouteChanged.bind(this));
-    import(/* webpackChunkName: "router" */ '../routes/router.js').then(
-      router => {
-        router.init(this.shadowRoot.querySelector('main'));
+    auth.onAuthStateChanged(function(account) {
+      if (account) {
+        self.set('logged', true);
+        self.set('user', account);
+        const callback = router => {
+          router.init(self.shadowRoot.querySelector('main'));
+        };
+        import(/* webpackChunkName: "router" */ '../routes/router.js').then(
+          callback
+        );
+      } else {
+        self.set('logged', false);
+        self.set('user', null);
       }
-    );
-    firebase.initializeApp(config);
-    const database = firebase.database();
-    const accounts = database.ref('users/');
-    accounts
-      .orderByChild('user')
-      .equalTo('vical.rl@gmail.com')
-      .once('child_added', function(snapshot) {
-        // console.log(snapshot.val());
-      });
+    });
+  }
+
+  _singOut(event) {
+    auth.signOut();
   }
 
   __onRouteChanged(e) {
-    // console.log(this.name);
-    // firebase.auth().onAuthStateChanged(function(account) {
-    //   console.log(account);
-    // });
     switch (e.detail.location.pathname) {
       case EMPLOYEE_LIST:
         this.selected = 0;

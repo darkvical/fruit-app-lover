@@ -1,9 +1,9 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import '@polymer/iron-ajax/iron-ajax.js';
-import '@vaadin/vaadin-text-field/vaadin-text-field.js';
-import '@vaadin/vaadin-grid/vaadin-grid.js';
-import '@vaadin/vaadin-grid/vaadin-grid-filter.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element';
+import { html } from '@polymer/polymer/lib/utils/html-tag';
+import '@polymer/iron-ajax';
+import '@vaadin/vaadin-text-field';
+import '@vaadin/vaadin-grid';
+import '@vaadin/vaadin-grid/vaadin-grid-filter';
 import '../styles/shared-styles.js';
 
 import '../components/fruit-lover.js';
