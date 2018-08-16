@@ -83,7 +83,7 @@ class LoginLover extends PolymerElement {
   _signInWithGoogle(event) {
     if (!auth.currentUser) {
       var provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithRedirect(provider);
+      auth.signInWithPopup(provider);
       auth
         .getRedirectResult()
         .then(function(result) {})
