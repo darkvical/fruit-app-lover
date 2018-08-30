@@ -34,3 +34,7 @@ Serve the built output on localhost `http://127.0.0.1:8000`:
 ```sh
 npm start
 ```
+
+## Adding new dependencies
+You shuld run the next command in your project after of to install your new dependecy:
+`rm -rf node_modules/ package-lock.json; npm i`

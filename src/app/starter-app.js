@@ -16,11 +16,11 @@ import '../styles/shared-styles.js';
 // views and routers
 import '../views/login-lover.js';
 import '../components/menu-header-user.js';
-import { EMPLOYEE_LIST, NEW_EMPLOYEE } from '../routes/urls';
+import { FRUIT_LOVERS, NEW_EMPLOYEE } from '../routes/urls';
 import { onLocationChanged } from '../routes/utils';
 
 // imports for use firebase
-import { auth } from '../access/firebase.js';
+import { auth, database } from '../access/firebase.js';
 // icons
 import '@vaadin/vaadin-lumo-styles/icons.js';
 import '../assets/icons-svg.js';
@@ -63,7 +63,7 @@ class StarterApp extends PolymerElement {
             </app-toolbar>
             <vaadin-list-box selected="{{selected}}">
               <vaadin-item>
-                <a href="/employee-list">Fruit lovers</a>
+                <a href="/fruit-lovers">Fruit lovers</a>
               </vaadin-item>
               <vaadin-item>
                 <a href="/employee-new">New employee</a>
@@ -128,6 +128,7 @@ class StarterApp extends PolymerElement {
         import(/* webpackChunkName: "router" */ '../routes/router.js').then(
           callback
         );
+        self._existUser(account);
       } else {
         self.set('logged', false);
         self.set('user', null);
@@ -139,9 +140,37 @@ class StarterApp extends PolymerElement {
     auth.signOut();
   }
 
+  _existUser(account) {
+    const userRef = database.ref('users');
+    const self = this;
+    userRef
+      .orderByChild('user')
+      .equalTo(account.email)
+      .once('value', function(snapshot) {
+        if (!snapshot.exists()) {
+          self._createUser(account);
+        }
+      });
+  }
+
+  _createUser(account) {
+    const user = account;
+    const self = this;
+    if (!self.existUser) {
+      const userRef = database.ref('users');
+      const userPush = userRef.push();
+      const userKey = userPush.key;
+      const payload = {};
+      payload[userKey + '/user'] = user.email;
+      payload[userKey + '/name'] = user.displayName;
+      payload[userKey + '/image'] = user.photoURL;
+      userRef.update(payload);
+    }
+  }
+
   __onRouteChanged(e) {
     switch (e.detail.location.pathname) {
-      case EMPLOYEE_LIST:
+      case FRUIT_LOVERS:
         this.selected = 0;
         break;
       case NEW_EMPLOYEE:

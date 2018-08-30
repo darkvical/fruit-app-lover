@@ -33,6 +33,35 @@ $template.innerHTML = `<dom-module id="shared-styles">
         color: #FFFFFF;
         background-color: var(--paper-pink-a700);
       }
+      .flex-horizontal {
+        @apply --layout-horizontal;
+      }
+      .flex-center-align {
+          @apply --layout-horizontal;
+          @apply --layout-center;
+      }
+      .flex-vertical {
+          @apply --layout-vertical;
+      }
+      .flex-center-justified {
+          @apply --layout-horizontal;
+          @apply --layout-center-justified;
+      }
+      .flex-end-justified {
+          @apply --layout-horizontal;
+          @apply --layout-end-justified;
+      }
+      .flex-start-justified {
+          @apply --layout-horizontal;
+          @apply --layout-start-justified;
+      }
+      .flexchild {
+          @apply --layout-flex;
+          margin-left: 5px;
+      }
+      .flex3child {
+          @apply --layout-flex-3;
+      }
     </style>
   </template>
 </dom-module>`;

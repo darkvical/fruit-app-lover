@@ -1,18 +1,18 @@
 import { Router } from '@vaadin/router';
-import { EMPLOYEE_LIST, NEW_EMPLOYEE } from './urls';
+import { FRUIT_LOVERS, NEW_EMPLOYEE } from './urls';
 
 export function init(outlet) {
   const router = new Router(outlet);
   router.setRoutes([
     {
       path: '/',
-      redirect: EMPLOYEE_LIST
+      redirect: FRUIT_LOVERS
     },
     {
-      path: EMPLOYEE_LIST,
-      component: 'employee-list',
+      path: FRUIT_LOVERS,
+      component: 'fruit-lovers',
       action: () => {
-        import(/* webpackChunkName: "list" */ '../views/employee-list');
+        import(/* webpackChunkName: "list" */ '../views/fruit-lovers');
       }
     },
     {

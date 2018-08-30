@@ -1,2 +1,2 @@
-export const EMPLOYEE_LIST = '/employee-list';
+export const FRUIT_LOVERS = '/fruit-lovers';
 export const NEW_EMPLOYEE = '/employee-new';

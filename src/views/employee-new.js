@@ -18,7 +18,7 @@ import '@vaadin/vaadin-radio-button';
 import '@vaadin/vaadin-text-field/vaadin-text-area';
 import '@vaadin/vaadin-upload';
 import '../styles/shared-styles.js';
-import { EMPLOYEE_LIST } from '../routes/urls.js';
+import { FRUIT_LOVERS } from '../routes/urls.js';
 import { navigateTo } from '../routes/utils.js';
 
 /**
@@ -183,7 +183,7 @@ class EmployeeNew extends PolymerElement {
   _formSubmittedOpenChanged(value, oldValue) {
     // once notification is closed, redirect to the list page
     if (oldValue && !value) {
-      navigateTo(EMPLOYEE_LIST);
+      navigateTo(FRUIT_LOVERS);
     }
   }
 
