@@ -37,4 +37,6 @@ npm start
 
 ## Adding new dependencies
 You shuld run the next command in your project after of to install your new dependecy:
-`rm -rf node_modules/ package-lock.json; npm i`
+```sh
+rm -rf node_modules/ package-lock.json; npm i
+```
